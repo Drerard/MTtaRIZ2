@@ -1,7 +1,16 @@
+import java.text.DecimalFormat;
+import java.util.Scanner;
+
 public class Lab2 {
     public static void main(String[] args){
-        int range = 8;
-       Lab2.Star(range);
+        int range;
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Введите высоту елки : ");
+        range = scanner.nextInt();
+
+        Lab2.Star(range);
+        Lab2.Array(6,6);
     }
 
     public static void Star(int range){
@@ -20,6 +29,25 @@ public class Lab2 {
                 System.out.print("*");
             }
 
+            System.out.println();
+        }
+    }
+
+    public static void Array(int n, int m){
+        int[][] arr = new int[n][m];
+        int buf = 0;
+
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < m; j++){
+                arr[i][j] = buf + 3;
+                buf = arr[i][j];
+            }
+        }
+
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < m; j++){
+                System.out.print(new DecimalFormat( "000 " ).format(arr[i][j]));
+            }
             System.out.println();
         }
     }
