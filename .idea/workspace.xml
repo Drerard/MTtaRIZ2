@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3457d78d-6c18-44eb-9cc3-50d2911c83cc" name="Changes" comment="add second line in lab1">
+    <list default="true" id="3457d78d-6c18-44eb-9cc3-50d2911c83cc" name="Changes" comment="changing static methods to objects methods">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Lab2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lab2.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,9 +43,16 @@
       <recent name="D:\программирование\Java\MTtaRIZ\out\production\MTtaRIZ" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Lab2">
+  <component name="RunManager" selected="Application.Lab3">
     <configuration name="Lab2" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Lab2" />
+      <module name="MTtaRIZ" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Lab3" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Lab3" />
       <module name="MTtaRIZ" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -61,6 +67,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Lab3" />
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
@@ -95,7 +102,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663096752882</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="changing static methods to objects methods">
+      <created>1663307338913</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1663307338913</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -125,6 +139,7 @@
     <MESSAGE value="прога" />
     <MESSAGE value="add second lab" />
     <MESSAGE value="add second line in lab1" />
-    <option name="LAST_COMMIT_MESSAGE" value="add second line in lab1" />
+    <MESSAGE value="changing static methods to objects methods" />
+    <option name="LAST_COMMIT_MESSAGE" value="changing static methods to objects methods" />
   </component>
 </project>
