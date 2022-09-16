@@ -2,21 +2,35 @@ import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class Lab2 {
-    public static void main(String[] args){
-        int range;
-        Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Введите высоту елки : ");
-        range = scanner.nextInt();
+    private int range;
 
-        Lab2.Star(range);
-        Lab2.Array(6,6);
+    public Lab2(){
+        range = 0;
+    }
+    public Lab2(int range){
+        this.range = range;
     }
 
-    public static void Star(int range){
-        int max_star = (range-1)*2+1;
-        int current_star = 0;
-        int space_num = 0;
+    public static void main(String[] args){
+        Scanner scanner = new Scanner(System.in);
+        Lab2 firstObject = new Lab2();
+        Lab2 secondObject = new Lab2(7);
+
+        System.out.print("Введите высоту первой елки : ");
+        firstObject.range = scanner.nextInt();
+
+        firstObject.Star(firstObject.range);
+        firstObject.Array(6,6);
+
+        System.out.println("\nВторая елка : ");
+        secondObject.Star(secondObject.range);
+    }
+
+    public void Star(int range){
+        int max_star, current_star, space_num;
+
+        max_star = (range-1)*2+1;
 
         for(int i = 1;i<=range;i++){
             current_star = (i-1)*2+1;
@@ -33,7 +47,7 @@ public class Lab2 {
         }
     }
 
-    public static void Array(int n, int m){
+    public void Array(int n, int m){
         int[][] arr = new int[n][m];
         int buf = 0;
 
