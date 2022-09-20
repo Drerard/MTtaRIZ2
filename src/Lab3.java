@@ -1,5 +1,4 @@
 import java.util.Scanner;
-
 /*
         x
         o
@@ -7,51 +6,79 @@ import java.util.Scanner;
         0̶
         |
 */
-
 public class Lab3 {
     public static void main(String[] args){
-        char x = 'x';
-        char o = 'o';
-        boolean stop = false;
-        int cord;
-        int step_count = 0;
-
         Scanner scanner = new Scanner(System.in);
-        Play_Field pf = new Play_Field();
-        Player player1 = new Player(pf, x);
-        Player player2 = new Player(pf, o);
-
-
-        System.out.print("Введите имя первого игрока: ");
-        player1.name = scanner.next();
-        System.out.print("Введите имя второго игрока: ");
-        player2.name = scanner.next();
-
-        Lab3.Rule();
+        GameControl gc;
+        String buf_name1;
+        String buf_name2;
 
         do {
-            System.out.print("Ход "+player1.name+" (введите число от 1 до 9 включительно): ");
-            do {
-                cord = scanner.nextInt();
-                while (!(cord < 10 && cord > 0)) {
-                    System.out.print("Введено некорректное число, попробуйте еще раз: ");
+            System.out.print("Введите имя первого игрока: ");
+            buf_name1 = scanner.next();
+            System.out.print("Введите имя второго игрока: ");
+            buf_name2 = scanner.next();
+
+            gc = new GameControl(buf_name1, buf_name2);
+
+            System.out.println("Создать новую игру? (+/-)");
+        } while (scanner.next().equals("+"));
+    }
+}
+
+class GameControl{
+    private final char x = 'x';
+    private final char o = 'o';
+    private boolean stop;
+    private int cord;
+    private int step_count = 0;
+
+    private Scanner scanner;
+    private Play_Field pf;
+    private Player player1;
+    private Player player2;
+
+    public GameControl(String name1, String name2){
+        scanner = new Scanner(System.in);
+        pf = new Play_Field();
+        player1 = new Player(pf, x, name1);
+        player2 = new Player(pf, o, name2);
+
+        GameRun();
+    }
+
+    private void GameRun(){
+        do{
+            //pf = new Play_Field();
+            pf.Restart();
+            stop = false;
+            GameControl.Rule();
+            do{
+                System.out.print("Ход "+player1.name+" (введите число от 1 до 9 включительно): ");
+
+                do {
                     cord = scanner.nextInt();
+                    while (!(cord < 10 && cord > 0)) {
+                        System.out.print("Введено некорректное число, попробуйте еще раз: ");
+                        cord = scanner.nextInt();
+                    }
+                } while (!(player1.Step(cord-1)));
+                step_count++;
+                pf.Include_data();
+
+                if(pf.Winner(player1.shape)){
+                    pf.Include_data();
+                    player1.Win();
+                    player2.Lose();
+                    stop = true;
                 }
-            } while (!(player1.Step(cord-1)));
-            step_count++;
-            pf.Include_data();
-
-            if(pf.Winner(player1.shape)){
-                stop = true;
-            }
-            else {
-
-                if (step_count == 9) {
+                else if(step_count == 9) {
+                    System.out.println("\nНичья");
                     stop = true;
                 }
                 else {
-
                     System.out.print("Ход " + player2.name + " (введите число от 1 до 9 включительно): ");
+
                     do {
                         cord = scanner.nextInt();
                         while (!(cord < 10 && cord > 0)) {
@@ -61,13 +88,17 @@ public class Lab3 {
                     } while (!(player2.Step(cord - 1)));
                     step_count++;
                     pf.Include_data();
+
                     if (pf.Winner(player2.shape)) {
-                        player2.count_W++;
+                        pf.Include_data();
+                        player2.Win();
+                        player1.Lose();
                         stop = true;
                     }
                 }
-            }
-        } while (!stop);
+            }while (!stop);
+            System.out.println("Сыграть еще? (+/-)");
+        } while(scanner.next().equals("+"));
     }
 
     public static void Rule(){
@@ -90,15 +121,16 @@ public class Lab3 {
 }
 
 class Player {
-    Play_Field pf;
+    private Play_Field pf;
+    private int count_W = 0;
+    private int count_L = 0;
     String name;
-    int count_W = 0;
-    int count_L = 0;
     char shape;
 
-    public Player(Play_Field pf, char shp){
+    public Player(Play_Field pf, char shp, String name){
         this.pf = pf;
         shape = shp;
+        this.name = name;
     }
 
     public boolean Step(int cord){
@@ -110,6 +142,17 @@ class Player {
             System.out.print("Ячейка уже занята, выберите другую :");
             return false;
         }
+    }
+
+    public void Win(){
+        count_W++;
+        System.out.println("\n" + name + " - победил");
+        System.out.println("Побед: " + count_W + "    поражений: " + count_L);
+    }
+    public void Lose(){
+        count_L++;
+        System.out.println("\n" + name + " - проиграл");
+        System.out.println("Побед: " + count_W + "    поражений: " + count_L);
     }
 }
 
@@ -134,14 +177,71 @@ class Play_Field {
     }
 
     public boolean Winner(char ch){
-        return (place_data[0]==ch)&&(place_data[1]==ch)&&(place_data[2]==ch)||
-                (place_data[3]==ch)&&(place_data[4]==ch)&&(place_data[5]==ch)||
-                (place_data[6]==ch)&&(place_data[7]==ch)&&(place_data[8]==ch)||
-                (place_data[0]==ch)&&(place_data[3]==ch)&&(place_data[6]==ch)||
-                (place_data[1]==ch)&&(place_data[4]==ch)&&(place_data[7]==ch)||
-                (place_data[2]==ch)&&(place_data[5]==ch)&&(place_data[8]==ch)||
-                (place_data[0]==ch)&&(place_data[4]==ch)&&(place_data[8]==ch)||
-                (place_data[2]==ch)&&(place_data[4]==ch)&&(place_data[6]==ch);
+        if((place_data[0]==ch)&&(place_data[1]==ch)&&(place_data[2]==ch)){
+            if (ch == 'x')
+                place_data[0] = place_data[1] = place_data[2] = '☒';
+            if (ch == 'o')
+                place_data[0] = place_data[1] = place_data[2] = '☐';
+            return true;
+        }
+        else if((place_data[3]==ch)&&(place_data[4]==ch)&&(place_data[5]==ch)){
+            if (ch == 'x')
+                place_data[3] = place_data[4] = place_data[5] = '☒';
+            if (ch == 'o')
+                place_data[3] = place_data[4] = place_data[5] = '☐';
+            return true;
+        }
+        else if((place_data[6]==ch)&&(place_data[7]==ch)&&(place_data[8]==ch)){
+            if (ch == 'x')
+                place_data[6] = place_data[7] = place_data[8] = '☒';
+            if (ch == 'o')
+                place_data[6] = place_data[7] = place_data[8] = '☐';
+            return true;
+        }
+        else if((place_data[0]==ch)&&(place_data[3]==ch)&&(place_data[6]==ch)){
+            if (ch == 'x')
+                place_data[0] = place_data[3] = place_data[6] = '☒';
+            if (ch == 'o')
+                place_data[0] = place_data[3] = place_data[6] = '☐';
+            return true;
+        }
+        else if((place_data[1]==ch)&&(place_data[4]==ch)&&(place_data[7]==ch)) {
+            if (ch == 'x')
+                place_data[1] = place_data[4] = place_data[7] = '☒';
+            if (ch == 'o')
+                place_data[1] = place_data[4] = place_data[7] = '☐';
+            return true;
+        }
+        else if((place_data[2]==ch)&&(place_data[5]==ch)&&(place_data[8]==ch)){
+            if (ch == 'x')
+                place_data[2] = place_data[5] = place_data[8] = '☒';
+            if (ch == 'o')
+                place_data[2] = place_data[5] = place_data[8] = '☐';
+            return true;
+        }
+        else if((place_data[0]==ch)&&(place_data[4]==ch)&&(place_data[8]==ch)){
+            if (ch == 'x')
+                place_data[0] = place_data[4] = place_data[8] = '☒';
+            if (ch == 'o')
+                place_data[0] = place_data[4] = place_data[8] = '☐';
+            return true;
+        }
+        else if((place_data[2]==ch)&&(place_data[4]==ch)&&(place_data[6]==ch)){
+            if (ch == 'x')
+                place_data[2] = place_data[4] = place_data[6] = '☒';
+            if (ch == 'o')
+                place_data[2] = place_data[4] = place_data[6] = '☐';
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public void Restart(){
+        canvas = new char[3][5];
+        for (int i = 0;i < place_data.length; i++)
+            place_data[i] = ' ';
     }
 
     public void Print(){
