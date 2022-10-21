@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3457d78d-6c18-44eb-9cc3-50d2911c83cc" name="Changes" comment="add third lab(50%)">
+    <list default="true" id="3457d78d-6c18-44eb-9cc3-50d2911c83cc" name="Changes" comment="finished third lab">
+      <change afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/lab_foure/Lab4.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Lab3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lab3.java" afterDir="false" />
     </list>
@@ -26,25 +29,33 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectId" id="2EX2k71U7KCjMpN9zvc8Lb9x8pq" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Git&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_opened_file_path": "C:/Program Files (x86)/MySQL/Connector J 8.0/mysql-connector-j-8.0.31.jar",
+    "project.structure.last.edited": "SDKs",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\программирование\Java\MTtaRIZ\out\production\MTtaRIZ" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Lab3">
+  <component name="RunManager" selected="Application.Lab4">
     <configuration name="Lab2" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Lab2" />
       <module name="MTtaRIZ" />
@@ -59,6 +70,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Lab4" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="lab_foure.Lab4" />
+      <module name="MTtaRIZ" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="lab_foure.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="MTtaRIZ" />
@@ -68,6 +92,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Lab4" />
         <item itemvalue="Application.Lab3" />
         <item itemvalue="Application.Main" />
       </list>
@@ -117,7 +142,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663350846496</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="finished third lab">
+      <created>1663683568555</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1663683568555</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -149,6 +181,7 @@
     <MESSAGE value="add second line in lab1" />
     <MESSAGE value="changing static methods to objects methods" />
     <MESSAGE value="add third lab(50%)" />
-    <option name="LAST_COMMIT_MESSAGE" value="add third lab(50%)" />
+    <MESSAGE value="finished third lab" />
+    <option name="LAST_COMMIT_MESSAGE" value="finished third lab" />
   </component>
 </project>

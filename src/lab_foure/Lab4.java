@@ -1,25 +1,15 @@
+package lab_foure;
+
+import java.util.Objects;
 import java.util.Scanner;
-/*
-        x
-        o
-        X̶
-        0̶
-        |
-*/
-public class Lab3 {
+import java.sql.*;
+
+public class Lab4 {
     public static void main(String[] args){
         Scanner scanner = new Scanner(System.in);
         GameControl gc;
-        String buf_name1;
-        String buf_name2;
-
         do {
-            System.out.print("Введите имя первого игрока: ");
-            buf_name1 = scanner.next();
-            System.out.print("Введите имя второго игрока: ");
-            buf_name2 = scanner.next();
-
-            gc = new GameControl(buf_name1, buf_name2);
+            gc = new GameControl();
             gc.GameRun();
 
             System.out.println("Создать новую игру? (+/-)");
@@ -39,16 +29,21 @@ class GameControl{
     private Player player1;
     private Player player2;
 
-    public GameControl(String name1, String name2){
+    public GameControl(){
         scanner = new Scanner(System.in);
         pf = new Play_Field();
-        player1 = new Player(pf, x, name1);
-        player2 = new Player(pf, o, name2);
+
+        player1 = new Player(pf, x);
+        System.out.println("Вход в аккаунт первого игрока");
+        SignIn(player1);
+
+        player2 = new Player(pf, o);
+        System.out.println("Вход в аккаунт второго игрока");
+        SignIn(player2);
     }
 
     public void GameRun(){
         do{
-            //pf = new Play_Field();
             pf.Restart();
             stop = false;
             GameControl.Rule();
@@ -100,6 +95,16 @@ class GameControl{
         } while(scanner.next().equals("+"));
     }
 
+    private void SignIn(Player pl){
+        String buf_name, buf_pass;
+        do {
+            System.out.print("Введите логин: ");
+            buf_name = scanner.next();
+            System.out.print("Введите пароль: ");
+            buf_pass = scanner.next();
+        } while (!pl.AccVerifi(buf_name, buf_pass));
+    }
+
     public static void Rule(){
         System.out.println("\nЧтоб указать в какую ячейку сетки сделать свой ход - ориентируйтесь по данной таблице, где цифра соответствует координате ячейки");
 
@@ -123,13 +128,38 @@ class Player {
     private Play_Field pf;
     private int count_W = 0;
     private int count_L = 0;
+    Db data_base = new Db();
     String name;
+    String pass;
     char shape;
 
-    public Player(Play_Field pf, char shp, String name){
+    public Player(Play_Field pf, char shp){
         this.pf = pf;
         shape = shp;
-        this.name = name;
+    }
+
+    public boolean AccVerifi(String name, String pass){
+        if(data_base.isUserExists(name))
+        {
+            System.out.println("Login \"" + name + "\" is exists");
+            if(data_base.isUserPassword(name, pass))
+            {
+                System.out.println("You are logged in\n");
+                this.name = name;
+                this.pass = pass;
+                return true;
+            }
+            else
+            {
+                System.out.println("Wrong password, try again");
+                return false;
+            }
+        }
+        else
+        {
+            System.out.println("Login \"" + name + "\" doesn't exists, try again");
+            return false;
+        }
     }
 
     public boolean Step(int cord){
@@ -152,6 +182,71 @@ class Player {
         count_L++;
         System.out.println("\n" + name + " - проиграл");
         System.out.println("Побед: " + count_W + "    поражений: " + count_L);
+    }
+}
+
+class Db {
+    private static final String USER_NAME = "root";
+    private static final String PASSWORD = "123456789";
+    private static final String DbURL = "jdbc:mysql://localhost:3306/mygame";
+    private static Connection connection;
+    private static Statement statement;
+
+    public Db() {
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(DbURL, USER_NAME, PASSWORD);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public boolean isUserExists(String username) {
+        try
+        {
+            statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT COUNT(*) FROM users WHERE username = '" + username + "';");
+
+            while(rs.next()) {
+                if (rs.getInt(1) == 1)
+                    return true;
+                else
+                    return false;
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    public boolean isUserPassword(String username, String password){
+        try
+        {
+            statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT password FROM users WHERE username = '" + username + "';");
+
+            while(rs.next()) {
+                if (Objects.equals(rs.getString(1),password))
+                    return true;
+                else
+                    return false;
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    public void Close() {
+        try{
+            connection.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 }
 
